@@ -450,60 +450,8 @@
     }
 
     @media (max-width: 560px) {
-      .shell { padding: 0 15px; }
-      header { padding: 18px 0; }
-      .brand { font-size: 17px; }
-      .hero { padding: 35px 0 25px; }
-      h1 { letter-spacing: -2px; }
-      .tools { width: 100%; justify-content: space-between; }
-      #search { flex: 1; min-width: 100px; }
-      .mosaic {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 10px;
-      }
-      .tile { grid-column: span 1; grid-row: span 12; }
-      .tile.tall { grid-row: span 17; }
-      .tile.short { grid-row: span 10; }
-      .tile.wide { grid-column: span 2; }
-      .tile-info { left: 12px; right: 12px; bottom: 12px; }
-      .tile-info h3 { font-size: 12px; }
-      .badge { top: 48px; font-size: 8px; }
-      .record { width: 95px; height: 95px; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation: none !important; transition: none !important; }
-    }
-  </style>
-</head>
-
-<body>
-  <div class="shell">
-    <header>
-      <div class="brand">
-        <span class="logo" aria-hidden="true">
-          <i></i><i></i><i></i><i></i>
-        </span>
-        MOSAIC
-      </div>
-      <button id="upload-button" class="primary" disabled>＋ Add media</button>
-    </header>
 
     <main>
-      <section class="hero">
-        <div>
-          <div class="eyebrow">Collect what moves you</div>
-          <h1>A world of pieces.<br>An <em>endless</em> canvas.</h1>
-          <p>
-            Your photos, films, and favorite sounds—
-            woven together in a mosaic that keeps unfolding.
-          </p>
-        </div>
-        <div class="hero-note">
-          Scroll to discover ↓<br>
-          A little room for everything you love.
-        </div>
-      </section>
 
       <input
         id="file-input"
