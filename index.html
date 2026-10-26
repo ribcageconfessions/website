@@ -4,17 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#DFE4D1">
-  <title>Mosaic — Your media, together</title>
+  <meta name="description" content="A flowing mosaic for photos, videos, and music.">
+  <title>Mosaic — Keep collecting</title>
 
   <style>
     :root {
-      color-scheme: dark;
-      --background: #11121a;
-      --panel: #1d1f2c;
-      --text: #f6f5fb;
-      --muted: #a8abc0;
-      --accent: #c6ff79;
-      --border: #ffffff18;
+      color-scheme: light;
+      --bg: #DFE4D1;
+      --panel: #EDF0E3;
+      --cream: #F8F6EC;
+      --text: #283629;
+      --muted: #596750;
+      --forest: #36583F;
+      --line: #36583F26;
+      --radius: 22px;
     }
 
     * { box-sizing: border-box; }
@@ -22,42 +25,52 @@
 
     body {
       margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: var(--text);
       background:
-        radial-gradient(circle at 90% 0%, #7553a02b, transparent 40%),
-        var(--background);
-      min-height: 100vh;
+        radial-gradient(circle at 90% 0%, #F8F6EC99, transparent 40%),
+        var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
     button, input { font: inherit; }
 
     button, .download {
-      border: 1px solid var(--border);
-      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
       padding: 11px 16px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--cream);
       color: var(--text);
-      background: var(--panel);
-      cursor: pointer;
       text-decoration: none;
+      cursor: pointer;
     }
 
-    button:hover, .download:hover { border-color: var(--accent); }
+    button:hover, .download:hover {
+      background: var(--panel);
+      border-color: var(--forest);
+    }
+
     button:disabled { opacity: .5; cursor: wait; }
 
     :focus-visible {
-      outline: 3px solid var(--accent);
+      outline: 3px solid var(--forest);
       outline-offset: 4px;
     }
 
     .primary {
-      background: var(--accent);
-      color: #18220e;
-      font-weight: 750;
+      background: var(--forest);
+      color: var(--cream);
+      border-color: var(--forest);
+      font-weight: 700;
     }
 
-    .container {
-      max-width: 1440px;
+    .primary:hover { background: #294631; }
+
+    .shell {
+      max-width: 1600px;
       margin: auto;
       padding: 0 28px;
     }
@@ -67,17 +80,17 @@
       justify-content: space-between;
       align-items: center;
       gap: 20px;
-      padding: 25px 0;
-      border-bottom: 1px solid var(--border);
+      padding: 24px 0;
+      border-bottom: 1px solid var(--line);
     }
 
     .brand {
       display: flex;
       align-items: center;
       gap: 12px;
-      font-weight: 850;
-      font-size: 22px;
+      font-size: 21px;
       letter-spacing: 3px;
+      font-weight: 850;
     }
 
     .logo {
@@ -87,157 +100,174 @@
       transform: rotate(-8deg);
     }
 
-    .logo i { height: 12px; border-radius: 3px; background: var(--accent); }
-    .logo i:nth-child(2) { background: #bb9aff; }
-    .logo i:nth-child(3) { background: #ff986f; }
+    .logo i { height: 12px; background: var(--forest); border-radius: 3px; }
+    .logo i:nth-child(2) { background: #92A57D; }
+    .logo i:nth-child(3) { background: #C0AA88; }
+    .logo i:nth-child(4) { background: #71865C; }
 
     .hero {
-      display: grid;
-      grid-template-columns: 1.3fr 1fr;
-      align-items: center;
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
       gap: 40px;
-      padding: 58px 0 38px;
+      padding: 52px 0 34px;
     }
 
     .eyebrow {
-      color: var(--accent);
-      font-weight: 700;
-      font-size: 12px;
+      font-size: 11px;
       letter-spacing: 3px;
       text-transform: uppercase;
+      font-weight: 750;
+      color: var(--forest);
     }
 
     h1 {
-      margin: 18px 0;
+      margin: 16px 0;
       font-size: clamp(44px, 6vw, 80px);
       line-height: 1.02;
       letter-spacing: -4px;
+      font-weight: 750;
     }
 
-    h1 span { color: var(--accent); }
+    h1 em {
+      color: var(--forest);
+      font-family: Georgia, serif;
+      font-weight: 400;
+    }
 
     .hero p {
-      max-width: 480px;
+      max-width: 450px;
+      margin: 0;
       color: var(--muted);
       line-height: 1.7;
     }
 
-    .hero-art {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      grid-auto-rows: 65px;
-      gap: 10px;
-      transform: rotate(-5deg);
-      padding: 20px;
+    .hero-note {
+      flex-shrink: 0;
+      font-size: 13px;
+      color: var(--muted);
+      text-align: right;
+      line-height: 1.8;
     }
-
-    .hero-art div {
-      display: grid;
-      place-items: center;
-      border-radius: 18px;
-      color: #22212c;
-      font-size: 38px;
-      background: #bb9aff;
-    }
-
-    .hero-art .one {
-      grid-column: span 2;
-      grid-row: span 2;
-      background: linear-gradient(135deg, #ffc08b, #ef79a1);
-    }
-
-    .hero-art .two { grid-column: span 2; background: var(--accent); }
-    .hero-art .three { grid-row: span 2; background: #85ceee; }
-    .hero-art .four { grid-column: span 2; }
-    .hero-art .five { background: #ffdc85; }
 
     .dropzone {
       width: 100%;
-      padding: 28px 20px;
-      border: 1px dashed #ffffff40;
-      border-radius: 22px;
+      display: block;
+      padding: 25px;
+      border: 1px dashed #647A5270;
+      border-radius: var(--radius);
+      background: #F8F6EC66;
       text-align: center;
-      background: #ffffff03;
-      transition: background .2s, border-color .2s;
     }
 
-    .dropzone:hover, .dropzone.dragging {
-      background: #c6ff7810;
-      border-color: var(--accent);
-    }
+    .dropzone strong { display: block; margin-bottom: 7px; }
+    .dropzone span { color: var(--muted); font-size: 12px; }
 
-    .dropzone strong { display: block; margin-bottom: 8px; font-size: 17px; }
-    .dropzone span { font-size: 13px; color: var(--muted); }
+    .dropzone.dragging {
+      background: var(--cream);
+      border-color: var(--forest);
+      outline: 3px solid #36583F20;
+    }
 
     #status {
-      min-height: 22px;
-      margin: 12px 0;
+      min-height: 20px;
+      font-size: 12px;
       color: var(--muted);
-      font-size: 13px;
+      margin: 10px 0 20px;
     }
 
     .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 16px;
-      margin: 24px 0;
+      gap: 12px;
+      padding: 14px 0;
+      background: #DFE4D1F2;
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 22px;
     }
 
-    .filters { display: flex; flex-wrap: wrap; gap: 8px; }
-    .filters button { border-radius: 999px; font-size: 13px; }
+    .filters, .tools {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .filters button { border-radius: 999px; font-size: 12px; }
 
     .filters button[aria-pressed="true"] {
-      background: var(--accent);
-      color: #18220e;
+      background: var(--forest);
+      color: var(--cream);
     }
 
     #search {
-      width: 260px;
-      padding: 12px 18px;
-      color: var(--text);
-      background: var(--panel);
-      border: 1px solid var(--border);
+      width: 210px;
+      padding: 11px 15px;
+      border: 1px solid var(--line);
       border-radius: 999px;
+      background: var(--cream);
+      color: var(--text);
     }
+
+    #search::placeholder { color: var(--muted); }
+
+    .preview-toggle {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .preview-toggle input { accent-color: var(--forest); }
 
     .collection-heading {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
-      gap: 12px;
-      margin-bottom: 18px;
+      gap: 16px;
+      margin: 0 0 18px;
     }
 
-    h2 { margin: 0; font-size: 20px; letter-spacing: -.5px; }
-    #count { color: var(--muted); font-size: 13px; }
+    h2 { font-size: 18px; margin: 0; }
+    #count { color: var(--muted); font-size: 12px; }
 
+    /* Small grid rows let tiles form a dense, varied mosaic. */
     .mosaic {
       display: grid;
       grid-template-columns: repeat(6, minmax(0, 1fr));
-      grid-auto-rows: 140px;
+      grid-auto-rows: 10px;
       grid-auto-flow: dense;
-      gap: 16px;
-      padding-bottom: 30px;
+      gap: 12px;
     }
 
     .tile {
       position: relative;
       grid-column: span 2;
-      grid-row: span 2;
+      grid-row: span 14;
+      min-width: 0;
       overflow: hidden;
-      border-radius: 22px;
-      border: 1px solid var(--border);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
       background: var(--panel);
+      box-shadow: 0 8px 25px #36583F0D;
+      animation: appear .35s ease both;
     }
 
-    .tile:nth-child(5n + 1) { grid-row: span 3; }
-    .tile:nth-child(7n + 4) { grid-column: span 3; }
+    .tile.tall { grid-row: span 20; }
+    .tile.short { grid-row: span 11; }
+    .tile.wide { grid-column: span 4; }
 
-    .preview {
+    .tile-open {
       position: absolute;
       inset: 0;
+      display: block;
       width: 100%;
       height: 100%;
       padding: 0;
@@ -247,79 +277,56 @@
       text-align: left;
     }
 
-    .preview img, .preview video {
-      display: block;
+    .tile-open img, .tile-open video {
       width: 100%;
       height: 100%;
+      display: block;
       object-fit: cover;
-      transition: transform .4s;
+      transition: transform .45s;
     }
 
-    .preview:hover img, .preview:hover video { transform: scale(1.05); }
+    .tile-open:hover img, .tile-open:hover video { transform: scale(1.04); }
 
-    .preview::after {
+    .tile-open::after {
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(transparent 35%, #000c);
-      pointer-events: none;
-    }
-
-    .music-art {
-      width: 100%;
-      height: 100%;
-      display: grid;
-      place-items: center;
-      background: linear-gradient(135deg, #7965cf, #da789d);
-    }
-
-    .tile:nth-child(even) .music-art {
-      background: linear-gradient(135deg, #2b9aa2, #24416a);
-    }
-
-    .record {
-      display: grid;
-      place-items: center;
-      width: 125px;
-      height: 125px;
-      border-radius: 50%;
-      color: var(--accent);
-      font-size: 40px;
-      box-shadow: 0 15px 35px #0005;
-      background:
-        repeating-radial-gradient(circle, #292934 0 2px, #15151c 3px 5px);
-    }
-
-    .badge {
-      position: absolute;
-      left: 12px;
-      top: 12px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: #11121ac9;
-      font-size: 10px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
+      background: linear-gradient(transparent 40%, #18291FE6);
       pointer-events: none;
     }
 
     .tile-info {
       position: absolute;
-      left: 16px;
-      right: 16px;
-      bottom: 16px;
+      bottom: 17px;
+      left: 17px;
+      right: 17px;
+      color: var(--cream);
       pointer-events: none;
     }
 
     .tile-info h3 {
-      margin: 0 0 6px;
+      margin: 0 0 5px;
       font-size: 15px;
-      overflow: hidden;
       white-space: nowrap;
+      overflow: hidden;
       text-overflow: ellipsis;
     }
 
-    .tile-info small { color: #ffffffb8; }
+    .tile-info small { font-size: 11px; color: #E4EAD8; }
+
+    .badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      padding: 6px 9px;
+      border-radius: 999px;
+      background: #283E30D9;
+      color: var(--cream);
+      font-size: 9px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      pointer-events: none;
+    }
 
     .actions {
       position: absolute;
@@ -330,338 +337,148 @@
     }
 
     .actions button, .actions a {
-      padding: 7px 10px;
+      width: 32px;
+      height: 32px;
+      padding: 0;
       border-radius: 10px;
-      background: #11121ad9;
-      font-size: 14px;
+      background: #F8F6ECF0;
+      color: var(--forest);
+    }
+
+    .music-art {
+      height: 100%;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #BCC9A8, #647A52);
+    }
+
+    .tile:nth-child(even) .music-art {
+      background: linear-gradient(135deg, #E5DDC7, #97AC86);
+    }
+
+    .record {
+      display: grid;
+      place-items: center;
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      color: var(--bg);
+      font-size: 40px;
+      background:
+        repeating-radial-gradient(circle, #36513D 0 2px, #233B2C 3px 5px);
+      box-shadow: 0 15px 35px #233B2C33;
     }
 
     .empty {
-      margin-bottom: 30px;
-      padding: 65px 20px;
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      color: var(--muted);
+      padding: 60px 20px;
       text-align: center;
+      color: var(--muted);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #F8F6EC55;
     }
 
     .empty strong { display: block; color: var(--text); margin-bottom: 10px; }
 
-    footer {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      padding: 24px 0;
-      border-top: 1px solid var(--border);
-      font-size: 12px;
-      line-height: 1.6;
+    #sentinel {
+      display: grid;
+      place-items: center;
+      min-height: 90px;
+      padding: 20px;
       color: var(--muted);
+      font-size: 12px;
+      text-align: center;
+    }
+
+    .load-more { margin: 0 auto 25px; }
+
+    footer {
+      padding: 22px 0;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.7;
     }
 
     dialog {
       width: min(960px, 94vw);
       max-height: 90vh;
       padding: 20px;
-      border: 1px solid var(--border);
+      border: 1px solid var(--line);
       border-radius: 24px;
-      background: var(--background);
+      background: var(--bg);
       color: var(--text);
     }
 
-    dialog::backdrop { background: #000c; backdrop-filter: blur(8px); }
+    dialog::backdrop { background: #203327B3; backdrop-filter: blur(8px); }
 
     .viewer-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 16px;
+      gap: 20px;
       margin-bottom: 16px;
     }
 
-    #viewer-title { font-size: 17px; overflow-wrap: anywhere; }
+    #viewer-title { overflow-wrap: anywhere; font-size: 17px; }
 
     #viewer-content img, #viewer-content video {
       display: block;
       width: 100%;
       max-height: 65vh;
       object-fit: contain;
-      background: #000;
+      background: #233B2C;
       border-radius: 14px;
     }
 
     #viewer-content audio { width: 100%; margin: 22px 0; }
-    #viewer-content .music-art { height: 260px; border-radius: 14px; }
+    #viewer-content .music-art { height: 280px; border-radius: 14px; }
+    #playback-note { color: var(--muted); font-size: 12px; }
+
+    @keyframes appear {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (min-width: 1300px) {
+      .mosaic { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+    }
 
     @media (max-width: 900px) {
-      .hero { grid-template-columns: 1fr; }
-      .hero-art { display: none; }
       .mosaic { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-      .tile:nth-child(7n + 4) { grid-column: span 2; }
+      .hero-note { display: none; }
     }
 
     @media (max-width: 560px) {
-      .container { padding: 0 16px; }
-      .hero { padding: 36px 0 24px; }
+      .shell { padding: 0 15px; }
+      header { padding: 18px 0; }
+      .brand { font-size: 17px; }
+      .hero { padding: 35px 0 25px; }
       h1 { letter-spacing: -2px; }
-      #search { width: 100%; }
+      .tools { width: 100%; justify-content: space-between; }
+      #search { flex: 1; min-width: 100px; }
       .mosaic {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        grid-auto-rows: 120px;
         gap: 10px;
       }
-      .tile, .tile:nth-child(7n + 4) { grid-column: span 1; }
-      .tile:nth-child(5n + 1) { grid-column: span 2; }
-      .tile-info { left: 12px; right: 12px; }
-      .tile-info h3 { font-size: 13px; }
-      .badge { top: 48px; font-size: 9px; }
-      footer { flex-direction: column; gap: 8px; }
+      .tile { grid-column: span 1; grid-row: span 12; }
+      .tile.tall { grid-row: span 17; }
+      .tile.short { grid-row: span 10; }
+      .tile.wide { grid-column: span 2; }
+      .tile-info { left: 12px; right: 12px; bottom: 12px; }
+      .tile-info h3 { font-size: 12px; }
+      .badge { top: 48px; font-size: 8px; }
+      .record { width: 95px; height: 95px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { transition: none !important; }
+      *, *::before, *::after { animation: none !important; transition: none !important; }
     }
-/* Sage mosaic theme — based on #DFE4D1 */
-:root {
-  color-scheme: light;
-
-  --background: #DFE4D1;
-  --panel: #EDF0E3;
-  --text: #283629;
-  --muted: #596750;
-  --accent: #36583F;
-  --border: #36583F26;
-
-  --cream: #F8F6EC;
-  --sage: #BCC9A8;
-  --olive: #647A52;
-  --forest: #36583F;
-}
-
-/* Page */
-body {
-  color: var(--text);
-  background:
-    radial-gradient(
-      circle at 90% 0%,
-      #F8F6EC99,
-      transparent 45%
-    ),
-    var(--background);
-}
-
-header,
-footer {
-  border-color: var(--border);
-}
-
-/* Buttons and inputs */
-button,
-.download {
-  color: var(--text);
-  background: var(--panel);
-  border-color: var(--border);
-}
-
-button:hover,
-.download:hover {
-  background: #E4EAD8;
-  border-color: var(--forest);
-}
-
-.primary,
-.filters button[aria-pressed="true"] {
-  background: var(--forest);
-  color: var(--cream);
-  border-color: var(--forest);
-}
-
-.primary:hover,
-.filters button[aria-pressed="true"]:hover {
-  background: #294631;
-}
-
-:focus-visible {
-  outline-color: var(--forest);
-}
-
-#search {
-  background: var(--cream);
-  color: var(--text);
-  border-color: var(--border);
-}
-
-#search::placeholder {
-  color: var(--muted);
-}
-
-/* Branding and heading */
-.logo i {
-  background: var(--forest);
-}
-
-.logo i:nth-child(2) {
-  background: #92A57D;
-}
-
-.logo i:nth-child(3) {
-  background: #C0AA88;
-}
-
-.logo i:nth-child(4) {
-  background: #71865C;
-}
-
-.eyebrow,
-h1 span {
-  color: var(--forest);
-}
-
-/* Decorative mosaic */
-.hero-art div {
-  color: var(--text);
-  background: var(--sage);
-  box-shadow: 0 8px 24px #36583F0D;
-}
-
-.hero-art .one {
-  background: linear-gradient(135deg, #F3EBD7, #C4CFB0);
-}
-
-.hero-art .two {
-  background: var(--forest);
-  color: var(--cream);
-}
-
-.hero-art .three {
-  background: #A5B898;
-}
-
-.hero-art .four {
-  background: #CBD5BB;
-}
-
-.hero-art .five {
-  background: #EDE3CD;
-}
-
-/* Upload area */
-.dropzone {
-  background: #F8F6EC66;
-  border-color: #647A5266;
-}
-
-.dropzone:hover,
-.dropzone.dragging {
-  background: #F8F6ECB3;
-  border-color: var(--forest);
-}
-
-.dropzone span,
-.hero p,
-#status,
-#count,
-footer {
-  color: var(--muted);
-}
-
-/* Collection */
-.tile {
-  background: var(--panel);
-  border-color: #36583F1F;
-  box-shadow: 0 8px 24px #36583F12;
-}
-
-/* Keep captions readable over photos and videos */
-.preview::after {
-  background: linear-gradient(
-    transparent 35%,
-    #18291FE6
-  );
-}
-
-.tile-info {
-  color: #F8F6EC;
-}
-
-.tile-info small {
-  color: #E4EAD8;
-}
-
-.badge {
-  background: #283E30E6;
-  color: #F8F6EC;
-}
-
-.actions button,
-.actions a {
-  background: #F8F6ECF2;
-  color: var(--forest);
-  border-color: #36583F33;
-}
-
-.actions button:hover,
-.actions a:hover {
-  background: #DFE4D1;
-  border-color: var(--forest);
-}
-
-/* Music artwork */
-.music-art {
-  background: linear-gradient(135deg, #BCC9A8, #647A52);
-}
-
-.tile:nth-child(even) .music-art {
-  background: linear-gradient(135deg, #E5DDC7, #97AC86);
-}
-
-.record {
-  color: #DFE4D1;
-  background:
-    repeating-radial-gradient(
-      circle,
-      #36513D 0 2px,
-      #233B2C 3px 5px
-    );
-  box-shadow: 0 15px 35px #233B2C33;
-}
-
-/* Empty state */
-.empty {
-  background: #F8F6EC55;
-  color: var(--muted);
-  border-color: var(--border);
-}
-
-.empty strong {
-  color: var(--text);
-}
-
-/* Media viewer */
-dialog {
-  background: var(--background);
-  color: var(--text);
-  border-color: #36583F33;
-  box-shadow: 0 24px 80px #233B2C33;
-}
-
-dialog::backdrop {
-  background: #20332799;
-  backdrop-filter: blur(8px);
-}
-
-#viewer-content img,
-#viewer-content video {
-  background: #233B2C;
-}
-
-#playback-note {
-  color: var(--muted);
-}
   </style>
 </head>
 
 <body>
-  <div class="container">
+  <div class="shell">
     <header>
       <div class="brand">
         <span class="logo" aria-hidden="true">
@@ -669,27 +486,22 @@ dialog::backdrop {
         </span>
         MOSAIC
       </div>
-      <button class="primary" id="upload-button" disabled>＋ Add media</button>
+      <button id="upload-button" class="primary" disabled>＋ Add media</button>
     </header>
 
     <main>
       <section class="hero">
         <div>
-          <div class="eyebrow">A home for every moment</div>
-          <h1>Your world.<br>Piece by <span>piece.</span></h1>
+          <div class="eyebrow">Collect what moves you</div>
+          <h1>A world of pieces.<br>An <em>endless</em> canvas.</h1>
           <p>
-            Photos worth keeping. Videos worth replaying. Music worth
-            getting lost in. Bring everything together in your own mosaic.
+            Your photos, films, and favorite sounds—
+            woven together in a mosaic that keeps unfolding.
           </p>
         </div>
-
-        <div class="hero-art" aria-hidden="true">
-          <div class="one">✦</div>
-          <div class="two">♫</div>
-          <div class="three">▶</div>
-          <div class="five">✳</div>
-          <div class="four">Together.</div>
-          <div class="five">♥</div>
+        <div class="hero-note">
+          Scroll to discover ↓<br>
+          A little room for everything you love.
         </div>
       </section>
 
@@ -701,9 +513,9 @@ dialog::backdrop {
         hidden
       >
 
-      <button class="dropzone" id="dropzone" disabled>
-        <strong>Drop your files here, or click to browse</strong>
-        <span>Photos, videos, and music · Up to 100 MB per file · Stored on this device</span>
+      <button id="dropzone" class="dropzone" disabled>
+        <strong>Drop a few new pieces into your world</strong>
+        <span>Click to upload photos, videos, or music · 100 MB per file maximum</span>
       </button>
 
       <p id="status" role="status" aria-live="polite">Opening your collection…</p>
@@ -715,74 +527,104 @@ dialog::backdrop {
           <button data-filter="video" aria-pressed="false">Videos</button>
           <button data-filter="audio" aria-pressed="false">Music</button>
         </nav>
-        <input id="search" type="search" placeholder="Search your collection…" aria-label="Search media">
+
+        <div class="tools">
+          <input
+            id="search"
+            type="search"
+            placeholder="Find a piece…"
+            aria-label="Search uploaded media"
+          >
+          <label class="preview-toggle">
+            <input id="demo-toggle" type="checkbox">
+            Endless preview
+          </label>
+        </div>
       </div>
 
       <div class="collection-heading">
-        <h2>Your collection</h2>
-        <span id="count">0 items</span>
+        <h2>Your unfolding collection</h2>
+        <span id="count"></span>
       </div>
 
-      <section id="gallery" class="mosaic" aria-label="Media collection"></section>
+      <section id="gallery" class="mosaic" aria-label="Mosaic media collection"></section>
 
-      <div id="empty" class="empty">
-        <strong>Your mosaic starts here.</strong>
-        Upload a photo, video, or song to add your first piece.
+      <div id="empty" class="empty" hidden>
+        <strong id="empty-title">Your canvas is waiting.</strong>
+        <span id="empty-text">Upload your first file, or enable Endless preview.</span>
       </div>
+
+      <div id="sentinel">
+        <span id="scroll-message"></span>
+      </div>
+
+      <button id="load-more" class="load-more" hidden>Load more pieces</button>
     </main>
 
     <footer>
-      <span>MOSAIC — A little space for everything you love.</span>
-      <span>Local collection · No account needed · No server uploads</span>
+      MOSAIC · Your uploads stay in this browser, not on a shared server.
+      Clearing browser data can remove saved files.
     </footer>
   </div>
 
   <dialog id="viewer" aria-labelledby="viewer-title">
     <div class="viewer-header">
       <h2 id="viewer-title"></h2>
-      <button id="close-viewer" aria-label="Close media preview">✕</button>
+      <button id="close-viewer" aria-label="Close preview">✕</button>
     </div>
     <div id="viewer-content"></div>
     <p id="playback-note" hidden>
-      If this file does not play, its format may not be supported by your browser.
+      Playback depends on the file format supported by your browser.
     </p>
   </dialog>
 
   <script>
     "use strict";
 
-    const $ = (selector) => document.querySelector(selector);
+    const $ = selector => document.querySelector(selector);
     const gallery = $("#gallery");
-    const fileInput = $("#file-input");
-    const uploadButton = $("#upload-button");
-    const dropzone = $("#dropzone");
+    const sentinel = $("#sentinel");
     const status = $("#status");
     const viewer = $("#viewer");
     const viewerContent = $("#viewer-content");
 
-    const MAX_FILE_SIZE = 100 * 1024 * 1024;
+    const BATCH_SIZE = 18;
+    const MAX_SIZE = 100 * 1024 * 1024;
     const labels = { image: "Photo", video: "Video", audio: "Music" };
 
     let database = null;
     let items = [];
+    let filtered = [];
+    let cursor = 0;
+    let demoIndex = 0;
     let filter = "all";
     let busy = false;
+    let loading = false;
+    let ready = false;
+    let observer = null;
 
-    function element(tag, className, text) {
-      const node = document.createElement(tag);
-      if (className) node.className = className;
-      if (text !== undefined) node.textContent = text;
-      return node;
+    function node(tag, className, text) {
+      const result = document.createElement(tag);
+      if (className) result.className = className;
+      if (text !== undefined) result.textContent = text;
+      return result;
     }
 
     function formatSize(bytes) {
-      if (bytes < 1024 * 1024) return `${Math.round(bytes / 1024)} KB`;
-      return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+      return bytes < 1024 * 1024
+        ? `${Math.round(bytes / 1024)} KB`
+        : `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+    }
+
+    function setBusy(value) {
+      busy = value;
+      $("#upload-button").disabled = value;
+      $("#dropzone").disabled = value;
     }
 
     function openDatabase() {
       return new Promise((resolve, reject) => {
-        const request = indexedDB.open("mosaic-media", 1);
+        const request = indexedDB.open("sage-mosaic", 1);
 
         request.onupgradeneeded = () => {
           request.result.createObjectStore("files", { keyPath: "id" });
@@ -791,23 +633,22 @@ dialog::backdrop {
         request.onsuccess = () => resolve(request.result);
         request.onerror = () => reject(request.error);
         request.onblocked = () => {
-          status.textContent = "Close other tabs using this site to finish opening storage.";
+          status.textContent = "Close other tabs using this site to open storage.";
         };
       });
     }
 
-    function loadFiles() {
+    function readFiles() {
       return new Promise((resolve, reject) => {
         const transaction = database.transaction("files", "readonly");
         const request = transaction.objectStore("files").getAll();
-
         transaction.oncomplete = () => resolve(request.result);
         transaction.onabort = () => reject(transaction.error);
         transaction.onerror = () => reject(transaction.error);
       });
     }
 
-    function changeStoredFile(action, value) {
+    function storeFile(action, value) {
       return new Promise((resolve, reject) => {
         const transaction = database.transaction("files", "readwrite");
         const store = transaction.objectStore("files");
@@ -822,36 +663,56 @@ dialog::backdrop {
     }
 
     function musicArtwork() {
-      const art = element("div", "music-art");
-      const record = element("div", "record", "♫");
+      const art = node("div", "music-art");
       art.setAttribute("aria-hidden", "true");
-      art.append(record);
+      art.append(node("div", "record", "♫"));
       return art;
     }
 
-    function closeViewer() {
-      viewer.close();
+    /* Generated locally: no external image requests or sample uploads. */
+    function makeDemo(index) {
+      const palettes = [
+        ["#DFE4D1", "#36583F", "#A7BA91"],
+        ["#EFE8D7", "#8D9E78", "#C7B48D"],
+        ["#BCCAAB", "#45664C", "#F1EFDF"],
+        ["#D4DCC7", "#71865C", "#AEBD98"],
+        ["#E8DFCA", "#8A795D", "#C9D2B8"]
+      ];
+
+      const [bg, dark, light] = palettes[index % palettes.length];
+      const x = 80 + (index * 73) % 450;
+      const y = 90 + (index * 47) % 390;
+
+      const shapes = [
+        `<circle cx="${x}" cy="${y}" r="190" fill="${dark}"/>
+         <circle cx="${600 - x}" cy="${600 - y}" r="155" fill="${light}"/>`,
+
+        `<path d="M70 600V260a230 230 0 0 1 460 0v340" fill="${dark}"/>
+         <path d="M180 600V285a120 120 0 0 1 240 0v315" fill="${light}"/>`,
+
+        `<path d="M0 390Q150 180 310 350T600 280V600H0Z" fill="${dark}"/>
+         <path d="M0 480Q170 310 330 450T600 390V600H0Z" fill="${light}"/>
+         <circle cx="430" cy="130" r="66" fill="${light}"/>`,
+
+        `<rect x="65" y="70" width="220" height="460" rx="110" fill="${dark}"/>
+         <rect x="310" y="70" width="220" height="460" rx="110" fill="${light}"/>`
+      ];
+
+      const svg = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="600" height="600"
+             viewBox="0 0 600 600">
+          <rect width="600" height="600" fill="${bg}"/>
+          ${shapes[index % shapes.length]}
+        </svg>
+      `;
+
+      return {
+        name: `Mosaic study ${String(index + 1).padStart(3, "0")}`,
+        kind: "image",
+        demo: true,
+        url: "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg)
+      };
     }
-
-    viewer.addEventListener("close", () => {
-      viewerContent.querySelectorAll("audio, video").forEach(media => {
-        media.pause();
-        media.removeAttribute("src");
-        media.load();
-      });
-      viewerContent.replaceChildren();
-    });
-
-    $("#close-viewer").addEventListener("click", closeViewer);
-
-    viewer.addEventListener("click", event => {
-      if (event.target !== viewer) return;
-      const rect = viewer.getBoundingClientRect();
-      if (
-        event.clientX < rect.left || event.clientX > rect.right ||
-        event.clientY < rect.top || event.clientY > rect.bottom
-      ) closeViewer();
-    });
 
     function openViewer(item) {
       $("#viewer-title").textContent = item.name;
@@ -859,14 +720,14 @@ dialog::backdrop {
       viewerContent.replaceChildren();
 
       if (item.kind === "image") {
-        const image = element("img");
+        const image = node("img");
         image.src = item.url;
         image.alt = item.name;
         viewerContent.append(image);
       } else {
         if (item.kind === "audio") viewerContent.append(musicArtwork());
 
-        const media = element(item.kind);
+        const media = node(item.kind);
         media.src = item.url;
         media.controls = true;
         media.preload = "metadata";
@@ -877,32 +738,62 @@ dialog::backdrop {
       viewer.showModal();
     }
 
-    async function deleteItem(item) {
-      if (busy) return;
-      if (!confirm(`Delete "${item.name}" from this collection?`)) return;
+    $("#close-viewer").addEventListener("click", () => viewer.close());
+
+    viewer.addEventListener("close", () => {
+      viewerContent.querySelectorAll("audio, video").forEach(media => {
+        media.pause();
+        media.removeAttribute("src");
+        media.load();
+      });
+      viewerContent.replaceChildren();
+    });
+
+    viewer.addEventListener("click", event => {
+      if (event.target !== viewer) return;
+
+      const rect = viewer.getBoundingClientRect();
+      if (
+        event.clientX < rect.left || event.clientX > rect.right ||
+        event.clientY < rect.top || event.clientY > rect.bottom
+      ) viewer.close();
+    });
+
+    async function removeItem(item) {
+      if (busy || !confirm(`Delete "${item.name}" from this collection?`)) return;
+
+      setBusy(true);
 
       try {
-        if (database) await changeStoredFile("delete", item.id);
+        if (database) await storeFile("delete", item.id);
         items = items.filter(entry => entry.id !== item.id);
         URL.revokeObjectURL(item.url);
-        render();
-        status.textContent = "File removed from your collection.";
+        resetGallery();
+        status.textContent = "Piece removed.";
       } catch {
-        status.textContent = "Could not delete this file. Please try again.";
+        status.textContent = "Could not delete this file. Try again.";
+      } finally {
+        setBusy(false);
       }
     }
 
-    function makeTile(item) {
-      const tile = element("article", "tile");
-      const preview = element("button", "preview");
-      preview.type = "button";
-      preview.setAttribute("aria-label", `Open ${item.name}`);
-      preview.addEventListener("click", () => openViewer(item));
+    function makeTile(item, index) {
+      const tile = node("article", "tile");
+
+      if (index % 5 === 0) tile.classList.add("tall");
+      else if (index % 5 === 3) tile.classList.add("short");
+
+      if (index % 9 === 4) tile.classList.add("wide");
+
+      const open = node("button", "tile-open");
+      open.type = "button";
+      open.setAttribute("aria-label", `Open ${item.name}`);
+      open.addEventListener("click", () => openViewer(item));
 
       if (item.kind === "audio") {
-        preview.append(musicArtwork());
+        open.append(musicArtwork());
       } else {
-        const media = element(item.kind === "image" ? "img" : "video");
+        const media = node(item.kind === "image" ? "img" : "video");
         media.src = item.url;
 
         if (item.kind === "image") {
@@ -916,91 +807,148 @@ dialog::backdrop {
           media.setAttribute("aria-hidden", "true");
         }
 
-        preview.append(media);
+        open.append(media);
       }
 
-      const badge = element("span", "badge", labels[item.kind]);
-      const info = element("div", "tile-info");
+      const badge = node("span", "badge", item.demo ? "Design preview" : labels[item.kind]);
+      const info = node("div", "tile-info");
+
       info.append(
-        element("h3", "", item.name),
-        element("small", "", `${formatSize(item.size)} · ${labels[item.kind]}`)
+        node("h3", "", item.name),
+        node("small", "", item.demo
+          ? "Generated artwork · Endless series"
+          : `${labels[item.kind]} · ${formatSize(item.size)}`)
       );
 
-      const actions = element("div", "actions");
-      const download = element("a", "download", "↓");
-      download.href = item.url;
-      download.download = item.name;
-      download.setAttribute("aria-label", `Download ${item.name}`);
-      download.title = "Download";
+      tile.append(open, badge, info);
 
-      const remove = element("button", "", "×");
-      remove.type = "button";
-      remove.title = "Delete";
-      remove.setAttribute("aria-label", `Delete ${item.name}`);
-      remove.addEventListener("click", () => deleteItem(item));
+      if (!item.demo) {
+        const actions = node("div", "actions");
 
-      actions.append(download, remove);
-      tile.append(preview, badge, info, actions);
+        const download = node("a", "download", "↓");
+        download.href = item.url;
+        download.download = item.name;
+        download.title = "Download";
+        download.setAttribute("aria-label", `Download ${item.name}`);
+
+        const remove = node("button", "", "×");
+        remove.type = "button";
+        remove.title = "Delete";
+        remove.setAttribute("aria-label", `Delete ${item.name}`);
+        remove.addEventListener("click", () => removeItem(item));
+
+        actions.append(download, remove);
+        tile.append(actions);
+      }
+
       return tile;
     }
 
-    function render() {
+    function demoAllowed() {
+      return $("#demo-toggle").checked &&
+        (filter === "all" || filter === "image") &&
+        !$("#search").value.trim();
+    }
+
+    function hasMore() {
+      return cursor < filtered.length || demoAllowed();
+    }
+
+    function updateCollectionState() {
+      const rendered = gallery.children.length;
+
+      $("#count").textContent = demoAllowed()
+        ? `${items.length} uploads · Endless preview`
+        : `${filtered.length} ${filtered.length === 1 ? "piece" : "pieces"}`;
+
+      $("#empty").hidden = rendered > 0;
+
+      if (!rendered && items.length) {
+        $("#empty-title").textContent = "No matching pieces.";
+        $("#empty-text").textContent = "Try another search or filter.";
+      } else {
+        $("#empty-title").textContent = "Your canvas is waiting.";
+        $("#empty-text").textContent =
+          "Upload your first file, or enable Endless preview.";
+      }
+
+      $("#scroll-message").textContent = hasMore()
+        ? "Keep scrolling to unfold more ↓"
+        : rendered ? "You’re all caught up. Add another piece whenever inspiration strikes." : "";
+
+      $("#load-more").hidden = !hasMore();
+    }
+
+    function loadBatch() {
+      if (!ready || loading || !hasMore()) return;
+
+      loading = true;
+      if (observer) observer.unobserve(sentinel);
+
+      gallery.setAttribute("aria-busy", "true");
+
+      const fragment = document.createDocumentFragment();
+      const start = gallery.children.length;
+      let added = 0;
+
+      while (added < BATCH_SIZE && cursor < filtered.length) {
+        fragment.append(makeTile(filtered[cursor++], start + added));
+        added++;
+      }
+
+      while (added < BATCH_SIZE && demoAllowed()) {
+        fragment.append(makeTile(makeDemo(demoIndex++), start + added));
+        added++;
+      }
+
+      gallery.append(fragment);
+      gallery.setAttribute("aria-busy", "false");
+      loading = false;
+      updateCollectionState();
+
+      /* Reobserve so another batch loads if the page is still too short. */
+      requestAnimationFrame(() => {
+        if (observer && hasMore()) observer.observe(sentinel);
+      });
+    }
+
+    function resetGallery() {
+      if (observer) observer.unobserve(sentinel);
+
       const query = $("#search").value.trim().toLowerCase();
-      const visible = items.filter(item =>
+
+      filtered = items.filter(item =>
         (filter === "all" || item.kind === filter) &&
         item.name.toLowerCase().includes(query)
       );
 
-      const fragment = document.createDocumentFragment();
-      visible.forEach(item => fragment.append(makeTile(item)));
-      gallery.replaceChildren(fragment);
+      cursor = 0;
+      demoIndex = 0;
+      gallery.replaceChildren();
 
-      $("#count").textContent =
-        `${visible.length} ${visible.length === 1 ? "item" : "items"}`;
-
-      $("#empty").hidden = visible.length > 0;
-
-      if (items.length && !visible.length) {
-        $("#empty").replaceChildren(
-          element("strong", "", "No matching pieces."),
-          document.createTextNode("Try another search or filter.")
-        );
-      } else {
-        $("#empty").replaceChildren(
-          element("strong", "", "Your mosaic starts here."),
-          document.createTextNode(
-            "Upload a photo, video, or song to add your first piece."
-          )
-        );
-      }
+      loadBatch();
+      updateCollectionState();
     }
 
-    function setBusy(value) {
-      busy = value;
-      uploadButton.disabled = value;
-      dropzone.disabled = value;
-      gallery.setAttribute("aria-busy", String(value));
-    }
-
-    async function importFiles(fileList) {
-      if (busy || !fileList.length) return;
+    async function importFiles(files) {
+      if (busy || !files.length) return;
 
       setBusy(true);
+
       let added = 0;
       let skipped = 0;
       let failed = 0;
 
       try {
-        for (const file of fileList) {
+        for (const file of files) {
           const kind = file.type.split("/")[0];
 
-          if (!["image", "video", "audio"].includes(kind) ||
-              file.size > MAX_FILE_SIZE) {
+          if (!["image", "video", "audio"].includes(kind) || file.size > MAX_SIZE) {
             skipped++;
             continue;
           }
 
-          status.textContent = `Importing ${file.name}…`;
+          status.textContent = `Adding ${file.name}…`;
 
           const record = {
             id: crypto.randomUUID(),
@@ -1012,48 +960,38 @@ dialog::backdrop {
           };
 
           try {
-            if (database) await changeStoredFile("put", record);
-            items.unshift({
-              ...record,
-              url: URL.createObjectURL(file)
-            });
+            if (database) await storeFile("put", record);
+            items.unshift({ ...record, url: URL.createObjectURL(file) });
             added++;
           } catch {
             failed++;
           }
         }
 
-        render();
+        resetGallery();
 
-        const messages = [
-          `${added} ${added === 1 ? "file" : "files"} added.`
-        ];
+        const messages = [`${added} ${added === 1 ? "piece" : "pieces"} added.`];
 
-        if (skipped) {
-          messages.push(`${skipped} skipped: unsupported type or over 100 MB.`);
-        }
-        if (failed) {
-          messages.push(`${failed} could not be saved; browser storage may be full.`);
-        }
-        if (!database) {
-          messages.push("Temporary mode: files will disappear when this page closes.");
-        }
+        if (skipped) messages.push(`${skipped} skipped: unsupported type or over 100 MB.`);
+        if (failed) messages.push(`${failed} could not be saved; storage may be full.`);
+        if (!database) messages.push("Temporary mode: these files will disappear after refresh.");
 
         status.textContent = messages.join(" ");
       } finally {
-        fileInput.value = "";
+        $("#file-input").value = "";
         setBusy(false);
       }
     }
 
-    uploadButton.addEventListener("click", () => fileInput.click());
-    dropzone.addEventListener("click", () => fileInput.click());
+    $("#upload-button").addEventListener("click", () => $("#file-input").click());
+    $("#dropzone").addEventListener("click", () => $("#file-input").click());
 
-    fileInput.addEventListener("change", () => {
-      importFiles(Array.from(fileInput.files));
+    $("#file-input").addEventListener("change", event => {
+      importFiles(Array.from(event.target.files));
     });
 
     let dragDepth = 0;
+    const dropzone = $("#dropzone");
 
     dropzone.addEventListener("dragenter", event => {
       event.preventDefault();
@@ -1067,11 +1005,8 @@ dialog::backdrop {
     });
 
     dropzone.addEventListener("dragleave", () => {
-      dragDepth--;
-      if (dragDepth <= 0) {
-        dragDepth = 0;
-        dropzone.classList.remove("dragging");
-      }
+      dragDepth = Math.max(0, dragDepth - 1);
+      if (!dragDepth) dropzone.classList.remove("dragging");
     });
 
     dropzone.addEventListener("drop", event => {
@@ -1081,7 +1016,6 @@ dialog::backdrop {
       importFiles(Array.from(event.dataTransfer.files));
     });
 
-    // Prevent dropped files outside the upload area from navigating away.
     window.addEventListener("dragover", event => event.preventDefault());
     window.addEventListener("drop", event => event.preventDefault());
 
@@ -1093,43 +1027,59 @@ dialog::backdrop {
           other.setAttribute("aria-pressed", String(other === button));
         });
 
-        render();
+        resetGallery();
       });
     });
 
-    $("#search").addEventListener("input", render);
+    let searchTimer;
+
+    $("#search").addEventListener("input", () => {
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(resetGallery, 180);
+    });
+
+    $("#demo-toggle").addEventListener("change", resetGallery);
+    $("#load-more").addEventListener("click", loadBatch);
 
     async function initialize() {
       setBusy(true);
 
       try {
         database = await openDatabase();
-        const stored = await loadFiles();
+        const stored = await readFiles();
 
         items = stored
           .sort((a, b) => b.created - a.created)
-          .map(record => ({
-            ...record,
-            url: URL.createObjectURL(record.blob)
-          }));
+          .map(record => ({ ...record, url: URL.createObjectURL(record.blob) }));
 
         database.onversionchange = () => {
           database.close();
           database = null;
-          status.textContent =
-            "Storage changed in another tab. Reload to reconnect.";
+          status.textContent = "Storage changed in another tab. Reload to reconnect.";
         };
 
         status.textContent =
-          "Ready. Your files are saved in this browser, not uploaded to a server.";
+          "Ready. Uploads are saved in this browser, not sent to a server.";
       } catch {
         if (database) database.close();
         database = null;
         status.textContent =
-          "Browser storage is unavailable. You can still add files, but they will not survive a refresh.";
+          "Browser storage is unavailable. Uploads will work temporarily until refresh.";
       }
 
-      render();
+      /* Show the theme immediately for first-time visitors. */
+      $("#demo-toggle").checked = items.length === 0;
+
+      if ("IntersectionObserver" in window) {
+        observer = new IntersectionObserver(entries => {
+          if (entries.some(entry => entry.isIntersecting)) loadBatch();
+        }, {
+          rootMargin: "600px 0px"
+        });
+      }
+
+      ready = true;
+      resetGallery();
       setBusy(false);
     }
 
