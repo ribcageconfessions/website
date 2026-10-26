@@ -4,56 +4,80 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#DFE4D1">
-  <meta name="description" content="A flowing mosaic for photos, videos, and music.">
-  <title>Mosaic — Keep collecting</title>
+  <meta name="description" content="A tile-based gallery for photos, videos, and music.">
+
+  <title>Media Gallery</title>
 
   <style>
     :root {
       color-scheme: light;
-      --bg: #DFE4D1;
+      --background: #DFE4D1;
       --panel: #EDF0E3;
       --cream: #F8F6EC;
       --text: #283629;
       --muted: #596750;
       --forest: #36583F;
-      --line: #36583F26;
+      --border: #36583F26;
       --radius: 22px;
     }
 
-    * { box-sizing: border-box; }
-    [hidden] { display: none !important; }
+    * {
+      box-sizing: border-box;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
 
     body {
       margin: 0;
-      background:
-        radial-gradient(circle at 90% 0%, #F8F6EC99, transparent 40%),
-        var(--bg);
+      min-height: 100vh;
       color: var(--text);
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(
+          circle at 90% 0%,
+          #F8F6EC99,
+          transparent 40%
+        ),
+        var(--background);
+      font-family:
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
     }
 
-    button, input { font: inherit; }
+    button,
+    input {
+      font: inherit;
+    }
 
-    button, .download {
+    button,
+    .download {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
       padding: 11px 16px;
-      border: 1px solid var(--line);
+      border: 1px solid var(--border);
       border-radius: 12px;
-      background: var(--cream);
       color: var(--text);
+      background: var(--cream);
       text-decoration: none;
       cursor: pointer;
     }
 
-    button:hover, .download:hover {
-      background: var(--panel);
+    button:hover,
+    .download:hover {
       border-color: var(--forest);
+      background: var(--panel);
     }
 
-    button:disabled { opacity: .5; cursor: wait; }
+    button:disabled {
+      opacity: 0.5;
+      cursor: wait;
+    }
 
     :focus-visible {
       outline: 3px solid var(--forest);
@@ -61,13 +85,15 @@
     }
 
     .primary {
-      background: var(--forest);
       color: var(--cream);
+      background: var(--forest);
       border-color: var(--forest);
       font-weight: 700;
     }
 
-    .primary:hover { background: #294631; }
+    .primary:hover {
+      background: #294631;
+    }
 
     .shell {
       max-width: 1600px;
@@ -77,103 +103,47 @@
 
     header {
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-end;
       align-items: center;
-      gap: 20px;
-      padding: 24px 0;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 21px;
-      letter-spacing: 3px;
-      font-weight: 850;
-    }
-
-    .logo {
-      display: grid;
-      grid-template-columns: repeat(2, 12px);
-      gap: 3px;
-      transform: rotate(-8deg);
-    }
-
-    .logo i { height: 12px; background: var(--forest); border-radius: 3px; }
-    .logo i:nth-child(2) { background: #92A57D; }
-    .logo i:nth-child(3) { background: #C0AA88; }
-    .logo i:nth-child(4) { background: #71865C; }
-
-    .hero {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 40px;
-      padding: 52px 0 34px;
-    }
-
-    .eyebrow {
-      font-size: 11px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      font-weight: 750;
-      color: var(--forest);
-    }
-
-    h1 {
-      margin: 16px 0;
-      font-size: clamp(44px, 6vw, 80px);
-      line-height: 1.02;
-      letter-spacing: -4px;
-      font-weight: 750;
-    }
-
-    h1 em {
-      color: var(--forest);
-      font-family: Georgia, serif;
-      font-weight: 400;
-    }
-
-    .hero p {
-      max-width: 450px;
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.7;
-    }
-
-    .hero-note {
-      flex-shrink: 0;
-      font-size: 13px;
-      color: var(--muted);
-      text-align: right;
-      line-height: 1.8;
+      padding: 18px 0;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border);
     }
 
     .dropzone {
-      width: 100%;
       display: block;
-      padding: 25px;
+      width: 100%;
+      padding: 28px 20px;
       border: 1px dashed #647A5270;
       border-radius: var(--radius);
       background: #F8F6EC66;
       text-align: center;
     }
 
-    .dropzone strong { display: block; margin-bottom: 7px; }
-    .dropzone span { color: var(--muted); font-size: 12px; }
+    .dropzone strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 17px;
+    }
+
+    .dropzone span {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6;
+    }
 
     .dropzone.dragging {
-      background: var(--cream);
       border-color: var(--forest);
       outline: 3px solid #36583F20;
+      background: var(--cream);
     }
 
     #status {
       min-height: 20px;
-      font-size: 12px;
-      color: var(--muted);
       margin: 10px 0 20px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6;
     }
 
     .toolbar {
@@ -186,36 +156,42 @@
       flex-wrap: wrap;
       gap: 12px;
       padding: 14px 0;
+      margin-bottom: 22px;
+      border-bottom: 1px solid var(--border);
       background: #DFE4D1F2;
       backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--line);
-      margin-bottom: 22px;
     }
 
-    .filters, .tools {
+    .filters,
+    .tools {
       display: flex;
       align-items: center;
       flex-wrap: wrap;
       gap: 8px;
     }
 
-    .filters button { border-radius: 999px; font-size: 12px; }
+    .filters button {
+      border-radius: 999px;
+      font-size: 12px;
+    }
 
     .filters button[aria-pressed="true"] {
-      background: var(--forest);
       color: var(--cream);
+      background: var(--forest);
     }
 
     #search {
       width: 210px;
       padding: 11px 15px;
-      border: 1px solid var(--line);
+      border: 1px solid var(--border);
       border-radius: 999px;
-      background: var(--cream);
       color: var(--text);
+      background: var(--cream);
     }
 
-    #search::placeholder { color: var(--muted); }
+    #search::placeholder {
+      color: var(--muted);
+    }
 
     .preview-toggle {
       display: flex;
@@ -225,21 +201,30 @@
       cursor: pointer;
     }
 
-    .preview-toggle input { accent-color: var(--forest); }
+    .preview-toggle input {
+      accent-color: var(--forest);
+    }
 
     .collection-heading {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
       gap: 16px;
-      margin: 0 0 18px;
+      margin-bottom: 18px;
     }
 
-    h2 { font-size: 18px; margin: 0; }
-    #count { color: var(--muted); font-size: 12px; }
+    h2 {
+      margin: 0;
+      font-size: 18px;
+    }
 
-    /* Small grid rows let tiles form a dense, varied mosaic. */
-    .mosaic {
+    #count {
+      color: var(--muted);
+      font-size: 12px;
+      text-align: right;
+    }
+
+    .gallery {
       display: grid;
       grid-template-columns: repeat(6, minmax(0, 1fr));
       grid-auto-rows: 10px;
@@ -253,20 +238,24 @@
       grid-row: span 14;
       min-width: 0;
       overflow: hidden;
-      border: 1px solid var(--line);
+      border: 1px solid var(--border);
       border-radius: var(--radius);
       background: var(--panel);
       box-shadow: 0 8px 25px #36583F0D;
-      animation: appear .35s ease both;
+      animation: appear 0.35s ease both;
     }
-header {
-  justify-content: flex-end;
-  padding: 18px 0;
-  margin-bottom: 24px;
-}
-    .tile.tall { grid-row: span 20; }
-    .tile.short { grid-row: span 11; }
-    .tile.wide { grid-column: span 4; }
+
+    .tile.tall {
+      grid-row: span 20;
+    }
+
+    .tile.short {
+      grid-row: span 11;
+    }
+
+    .tile.wide {
+      grid-column: span 4;
+    }
 
     .tile-open {
       position: absolute;
@@ -281,42 +270,57 @@ header {
       text-align: left;
     }
 
-    .tile-open img, .tile-open video {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: cover;
-      transition: transform .45s;
+    .tile-open:focus-visible {
+      outline-offset: -5px;
     }
 
-    .tile-open:hover img, .tile-open:hover video { transform: scale(1.04); }
+    .tile-open img,
+    .tile-open video {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.45s;
+    }
+
+    .tile-open:hover img,
+    .tile-open:hover video {
+      transform: scale(1.04);
+    }
 
     .tile-open::after {
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(transparent 40%, #18291FE6);
+      background:
+        linear-gradient(
+          transparent 40%,
+          #18291FE6
+        );
       pointer-events: none;
     }
 
     .tile-info {
       position: absolute;
+      right: 17px;
       bottom: 17px;
       left: 17px;
-      right: 17px;
       color: var(--cream);
       pointer-events: none;
     }
 
     .tile-info h3 {
       margin: 0 0 5px;
+      overflow: hidden;
       font-size: 15px;
       white-space: nowrap;
-      overflow: hidden;
       text-overflow: ellipsis;
     }
 
-    .tile-info small { font-size: 11px; color: #E4EAD8; }
+    .tile-info small {
+      color: #E4EAD8;
+      font-size: 11px;
+    }
 
     .badge {
       position: absolute;
@@ -324,8 +328,8 @@ header {
       left: 12px;
       padding: 6px 9px;
       border-radius: 999px;
-      background: #283E30D9;
       color: var(--cream);
+      background: #283E30D9;
       font-size: 9px;
       letter-spacing: 1px;
       text-transform: uppercase;
@@ -340,24 +344,35 @@ header {
       gap: 6px;
     }
 
-    .actions button, .actions a {
+    .actions button,
+    .actions a {
       width: 32px;
       height: 32px;
       padding: 0;
       border-radius: 10px;
-      background: #F8F6ECF0;
       color: var(--forest);
+      background: #F8F6ECF0;
     }
 
     .music-art {
-      height: 100%;
       display: grid;
       place-items: center;
-      background: linear-gradient(135deg, #BCC9A8, #647A52);
+      height: 100%;
+      background:
+        linear-gradient(
+          135deg,
+          #BCC9A8,
+          #647A52
+        );
     }
 
     .tile:nth-child(even) .music-art {
-      background: linear-gradient(135deg, #E5DDC7, #97AC86);
+      background:
+        linear-gradient(
+          135deg,
+          #E5DDC7,
+          #97AC86
+        );
     }
 
     .record {
@@ -366,23 +381,31 @@ header {
       width: 130px;
       height: 130px;
       border-radius: 50%;
-      color: var(--bg);
+      color: var(--background);
       font-size: 40px;
       background:
-        repeating-radial-gradient(circle, #36513D 0 2px, #233B2C 3px 5px);
+        repeating-radial-gradient(
+          circle,
+          #36513D 0 2px,
+          #233B2C 3px 5px
+        );
       box-shadow: 0 15px 35px #233B2C33;
     }
 
     .empty {
       padding: 60px 20px;
-      text-align: center;
-      color: var(--muted);
-      border: 1px solid var(--line);
+      border: 1px solid var(--border);
       border-radius: var(--radius);
+      color: var(--muted);
       background: #F8F6EC55;
+      text-align: center;
     }
 
-    .empty strong { display: block; color: var(--text); margin-bottom: 10px; }
+    .empty strong {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
 
     #sentinel {
       display: grid;
@@ -394,11 +417,14 @@ header {
       text-align: center;
     }
 
-    .load-more { margin: 0 auto 25px; }
+    .load-more {
+      display: flex;
+      margin: 0 auto 25px;
+    }
 
     footer {
       padding: 22px 0;
-      border-top: 1px solid var(--line);
+      border-top: 1px solid var(--border);
       color: var(--muted);
       font-size: 12px;
       line-height: 1.7;
@@ -408,13 +434,16 @@ header {
       width: min(960px, 94vw);
       max-height: 90vh;
       padding: 20px;
-      border: 1px solid var(--line);
+      border: 1px solid var(--border);
       border-radius: 24px;
-      background: var(--bg);
       color: var(--text);
+      background: var(--background);
     }
 
-    dialog::backdrop { background: #203327B3; backdrop-filter: blur(8px); }
+    dialog::backdrop {
+      background: #203327B3;
+      backdrop-filter: blur(8px);
+    }
 
     .viewer-header {
       display: flex;
@@ -424,39 +453,143 @@ header {
       margin-bottom: 16px;
     }
 
-    #viewer-title { overflow-wrap: anywhere; font-size: 17px; }
+    #viewer-title {
+      font-size: 17px;
+      overflow-wrap: anywhere;
+    }
 
-    #viewer-content img, #viewer-content video {
+    #viewer-content img,
+    #viewer-content video {
       display: block;
       width: 100%;
       max-height: 65vh;
-      object-fit: contain;
+      border-radius: 14px;
       background: #233B2C;
+      object-fit: contain;
+    }
+
+    #viewer-content audio {
+      width: 100%;
+      margin: 22px 0;
+    }
+
+    #viewer-content .music-art {
+      height: 280px;
       border-radius: 14px;
     }
 
-    #viewer-content audio { width: 100%; margin: 22px 0; }
-    #viewer-content .music-art { height: 280px; border-radius: 14px; }
-    #playback-note { color: var(--muted); font-size: 12px; }
+    #playback-note {
+      color: var(--muted);
+      font-size: 12px;
+    }
 
     @keyframes appear {
-      from { opacity: 0; transform: translateY(12px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     @media (min-width: 1300px) {
-      .mosaic { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+      .gallery {
+        grid-template-columns: repeat(8, minmax(0, 1fr));
+      }
     }
 
     @media (max-width: 900px) {
-      .mosaic { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-      .hero-note { display: none; }
+      .gallery {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
     }
 
     @media (max-width: 560px) {
+      .shell {
+        padding: 0 15px;
+      }
+
+      header {
+        padding: 16px 0;
+        margin-bottom: 18px;
+      }
+
+      .tools {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      #search {
+        flex: 1;
+        min-width: 100px;
+      }
+
+      .gallery {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .tile {
+        grid-column: span 1;
+        grid-row: span 12;
+      }
+
+      .tile.tall {
+        grid-row: span 17;
+      }
+
+      .tile.short {
+        grid-row: span 10;
+      }
+
+      .tile.wide {
+        grid-column: span 2;
+      }
+
+      .tile-info {
+        right: 12px;
+        bottom: 12px;
+        left: 12px;
+      }
+
+      .tile-info h3 {
+        font-size: 12px;
+      }
+
+      .badge {
+        top: 48px;
+        font-size: 8px;
+      }
+
+      .record {
+        width: 95px;
+        height: 95px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="shell">
+    <header>
+      <button id="upload-button" class="primary" disabled>
+        ＋ Add media
+      </button>
+    </header>
 
     <main>
-
       <input
         id="file-input"
         type="file"
@@ -466,27 +599,43 @@ header {
       >
 
       <button id="dropzone" class="dropzone" disabled>
-        <strong>Drop a few new pieces into your world</strong>
-        <span>Click to upload photos, videos, or music · 100 MB per file maximum</span>
+        <strong>Drop files here or click to upload</strong>
+        <span>
+          Photos, videos, and music · 100 MB per file maximum
+        </span>
       </button>
 
-      <p id="status" role="status" aria-live="polite">Opening your collection…</p>
+      <p id="status" role="status" aria-live="polite">
+        Opening your collection…
+      </p>
 
       <div class="toolbar">
         <nav class="filters" aria-label="Filter media">
-          <button data-filter="all" aria-pressed="true">Everything</button>
-          <button data-filter="image" aria-pressed="false">Photos</button>
-          <button data-filter="video" aria-pressed="false">Videos</button>
-          <button data-filter="audio" aria-pressed="false">Music</button>
+          <button data-filter="all" aria-pressed="true">
+            Everything
+          </button>
+
+          <button data-filter="image" aria-pressed="false">
+            Photos
+          </button>
+
+          <button data-filter="video" aria-pressed="false">
+            Videos
+          </button>
+
+          <button data-filter="audio" aria-pressed="false">
+            Music
+          </button>
         </nav>
 
         <div class="tools">
           <input
             id="search"
             type="search"
-            placeholder="Find a piece…"
+            placeholder="Search files…"
             aria-label="Search uploaded media"
           >
+
           <label class="preview-toggle">
             <input id="demo-toggle" type="checkbox">
             Endless preview
@@ -495,26 +644,37 @@ header {
       </div>
 
       <div class="collection-heading">
-        <h2>Your unfolding collection</h2>
+        <h2>Your collection</h2>
         <span id="count"></span>
       </div>
 
-      <section id="gallery" class="mosaic" aria-label="Mosaic media collection"></section>
+      <section
+        id="gallery"
+        class="gallery"
+        aria-label="Media collection"
+      ></section>
 
       <div id="empty" class="empty" hidden>
-        <strong id="empty-title">Your canvas is waiting.</strong>
-        <span id="empty-text">Upload your first file, or enable Endless preview.</span>
+        <strong id="empty-title">
+          No files yet.
+        </strong>
+
+        <span id="empty-text">
+          Upload your first file, or enable Endless preview.
+        </span>
       </div>
 
       <div id="sentinel">
         <span id="scroll-message"></span>
       </div>
 
-      <button id="load-more" class="load-more" hidden>Load more pieces</button>
+      <button id="load-more" class="load-more" hidden>
+        Load more
+      </button>
     </main>
 
     <footer>
-      MOSAIC · Your uploads stay in this browser, not on a shared server.
+      Uploads are stored in this browser, not on a shared server.
       Clearing browser data can remove saved files.
     </footer>
   </div>
@@ -522,9 +682,14 @@ header {
   <dialog id="viewer" aria-labelledby="viewer-title">
     <div class="viewer-header">
       <h2 id="viewer-title"></h2>
-      <button id="close-viewer" aria-label="Close preview">✕</button>
+
+      <button id="close-viewer" aria-label="Close preview">
+        ✕
+      </button>
     </div>
+
     <div id="viewer-content"></div>
+
     <p id="playback-note" hidden>
       Playback depends on the file format supported by your browser.
     </p>
@@ -534,15 +699,22 @@ header {
     "use strict";
 
     const $ = selector => document.querySelector(selector);
+
     const gallery = $("#gallery");
     const sentinel = $("#sentinel");
     const status = $("#status");
     const viewer = $("#viewer");
     const viewerContent = $("#viewer-content");
+    const dropzone = $("#dropzone");
 
     const BATCH_SIZE = 18;
     const MAX_SIZE = 100 * 1024 * 1024;
-    const labels = { image: "Photo", video: "Video", audio: "Music" };
+
+    const labels = {
+      image: "Photo",
+      video: "Video",
+      audio: "Music"
+    };
 
     let database = null;
     let items = [];
@@ -554,74 +726,128 @@ header {
     let loading = false;
     let ready = false;
     let observer = null;
+    let searchTimer;
+    let dragDepth = 0;
 
-    function node(tag, className, text) {
-      const result = document.createElement(tag);
-      if (className) result.className = className;
-      if (text !== undefined) result.textContent = text;
-      return result;
+    function createElement(tag, className, text) {
+      const element = document.createElement(tag);
+
+      if (className) {
+        element.className = className;
+      }
+
+      if (text !== undefined) {
+        element.textContent = text;
+      }
+
+      return element;
     }
 
     function formatSize(bytes) {
-      return bytes < 1024 * 1024
-        ? `${Math.round(bytes / 1024)} KB`
-        : `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+      if (bytes < 1024 * 1024) {
+        return `${Math.round(bytes / 1024)} KB`;
+      }
+
+      return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
     }
 
     function setBusy(value) {
       busy = value;
       $("#upload-button").disabled = value;
-      $("#dropzone").disabled = value;
+      dropzone.disabled = value;
     }
 
     function openDatabase() {
       return new Promise((resolve, reject) => {
+        // Retain the previous database name to preserve saved uploads.
         const request = indexedDB.open("sage-mosaic", 1);
 
         request.onupgradeneeded = () => {
-          request.result.createObjectStore("files", { keyPath: "id" });
+          request.result.createObjectStore("files", {
+            keyPath: "id"
+          });
         };
 
-        request.onsuccess = () => resolve(request.result);
-        request.onerror = () => reject(request.error);
+        request.onsuccess = () => {
+          resolve(request.result);
+        };
+
+        request.onerror = () => {
+          reject(request.error);
+        };
+
         request.onblocked = () => {
-          status.textContent = "Close other tabs using this site to open storage.";
+          status.textContent =
+            "Close other tabs using this site to open storage.";
         };
       });
     }
 
     function readFiles() {
       return new Promise((resolve, reject) => {
-        const transaction = database.transaction("files", "readonly");
-        const request = transaction.objectStore("files").getAll();
-        transaction.oncomplete = () => resolve(request.result);
-        transaction.onabort = () => reject(transaction.error);
-        transaction.onerror = () => reject(transaction.error);
+        const transaction = database.transaction(
+          "files",
+          "readonly"
+        );
+
+        const request = transaction
+          .objectStore("files")
+          .getAll();
+
+        transaction.oncomplete = () => {
+          resolve(request.result);
+        };
+
+        transaction.onabort = () => {
+          reject(transaction.error);
+        };
+
+        transaction.onerror = () => {
+          reject(transaction.error);
+        };
       });
     }
 
     function storeFile(action, value) {
       return new Promise((resolve, reject) => {
-        const transaction = database.transaction("files", "readwrite");
+        const transaction = database.transaction(
+          "files",
+          "readwrite"
+        );
+
         const store = transaction.objectStore("files");
 
-        if (action === "put") store.put(value);
-        else store.delete(value);
+        if (action === "put") {
+          store.put(value);
+        } else {
+          store.delete(value);
+        }
 
         transaction.oncomplete = () => resolve();
-        transaction.onabort = () => reject(transaction.error);
-        transaction.onerror = () => reject(transaction.error);
+
+        transaction.onabort = () => {
+          reject(transaction.error);
+        };
+
+        transaction.onerror = () => {
+          reject(transaction.error);
+        };
       });
     }
 
     function musicArtwork() {
-      const art = node("div", "music-art");
+      const art = createElement("div", "music-art");
       art.setAttribute("aria-hidden", "true");
-      art.append(node("div", "record", "♫"));
+
+      art.append(
+        createElement("div", "record", "♫")
+      );
+
       return art;
     }
 
-    /* Generated locally: no external image requests or sample uploads. */
+    // Decorative tiles are generated locally.
+    // They are not uploaded files and make no external image requests.
     function makeDemo(index) {
       const palettes = [
         ["#DFE4D1", "#36583F", "#A7BA91"],
@@ -631,121 +857,212 @@ header {
         ["#E8DFCA", "#8A795D", "#C9D2B8"]
       ];
 
-      const [bg, dark, light] = palettes[index % palettes.length];
+      const [background, dark, light] =
+        palettes[index % palettes.length];
+
       const x = 80 + (index * 73) % 450;
       const y = 90 + (index * 47) % 390;
 
       const shapes = [
-        `<circle cx="${x}" cy="${y}" r="190" fill="${dark}"/>
-         <circle cx="${600 - x}" cy="${600 - y}" r="155" fill="${light}"/>`,
-
-        `<path d="M70 600V260a230 230 0 0 1 460 0v340" fill="${dark}"/>
-         <path d="M180 600V285a120 120 0 0 1 240 0v315" fill="${light}"/>`,
-
-        `<path d="M0 390Q150 180 310 350T600 280V600H0Z" fill="${dark}"/>
-         <path d="M0 480Q170 310 330 450T600 390V600H0Z" fill="${light}"/>
-         <circle cx="430" cy="130" r="66" fill="${light}"/>`,
-
-        `<rect x="65" y="70" width="220" height="460" rx="110" fill="${dark}"/>
-         <rect x="310" y="70" width="220" height="460" rx="110" fill="${light}"/>`
+        `
+          <circle
+            cx="${x}" cy="${y}" r="190"
+            fill="${dark}"
+          />
+          <circle
+            cx="${600 - x}" cy="${600 - y}" r="155"
+            fill="${light}"
+          />
+        `,
+        `
+          <path
+            d="M70 600V260a230 230 0 0 1 460 0v340"
+            fill="${dark}"
+          />
+          <path
+            d="M180 600V285a120 120 0 0 1 240 0v315"
+            fill="${light}"
+          />
+        `,
+        `
+          <path
+            d="M0 390Q150 180 310 350T600 280V600H0Z"
+            fill="${dark}"
+          />
+          <path
+            d="M0 480Q170 310 330 450T600 390V600H0Z"
+            fill="${light}"
+          />
+          <circle
+            cx="430" cy="130" r="66"
+            fill="${light}"
+          />
+        `,
+        `
+          <rect
+            x="65" y="70" width="220" height="460"
+            rx="110" fill="${dark}"
+          />
+          <rect
+            x="310" y="70" width="220" height="460"
+            rx="110" fill="${light}"
+          />
+        `
       ];
 
       const svg = `
-        <svg xmlns="http://www.w3.org/2000/svg" width="600" height="600"
-             viewBox="0 0 600 600">
-          <rect width="600" height="600" fill="${bg}"/>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="600"
+          height="600"
+          viewBox="0 0 600 600"
+        >
+          <rect
+            width="600"
+            height="600"
+            fill="${background}"
+          />
           ${shapes[index % shapes.length]}
         </svg>
       `;
 
       return {
-        name: `Mosaic study ${String(index + 1).padStart(3, "0")}`,
+        name: `Design study ${String(index + 1).padStart(3, "0")}`,
         kind: "image",
         demo: true,
-        url: "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg)
+        url: "data:image/svg+xml;charset=utf-8," +
+          encodeURIComponent(svg)
       };
     }
 
     function openViewer(item) {
       $("#viewer-title").textContent = item.name;
       $("#playback-note").hidden = item.kind === "image";
+
       viewerContent.replaceChildren();
 
       if (item.kind === "image") {
-        const image = node("img");
+        const image = createElement("img");
         image.src = item.url;
         image.alt = item.name;
+
         viewerContent.append(image);
       } else {
-        if (item.kind === "audio") viewerContent.append(musicArtwork());
+        if (item.kind === "audio") {
+          viewerContent.append(musicArtwork());
+        }
 
-        const media = node(item.kind);
+        const media = createElement(item.kind);
         media.src = item.url;
         media.controls = true;
         media.preload = "metadata";
-        if (item.kind === "video") media.playsInline = true;
+
+        if (item.kind === "video") {
+          media.playsInline = true;
+        }
+
         viewerContent.append(media);
       }
 
       viewer.showModal();
     }
 
-    $("#close-viewer").addEventListener("click", () => viewer.close());
+    $("#close-viewer").addEventListener("click", () => {
+      viewer.close();
+    });
 
     viewer.addEventListener("close", () => {
-      viewerContent.querySelectorAll("audio, video").forEach(media => {
-        media.pause();
-        media.removeAttribute("src");
-        media.load();
-      });
+      viewerContent
+        .querySelectorAll("audio, video")
+        .forEach(media => {
+          media.pause();
+          media.removeAttribute("src");
+          media.load();
+        });
+
       viewerContent.replaceChildren();
     });
 
     viewer.addEventListener("click", event => {
-      if (event.target !== viewer) return;
+      if (event.target !== viewer) {
+        return;
+      }
 
       const rect = viewer.getBoundingClientRect();
-      if (
-        event.clientX < rect.left || event.clientX > rect.right ||
-        event.clientY < rect.top || event.clientY > rect.bottom
-      ) viewer.close();
+
+      const outside =
+        event.clientX < rect.left ||
+        event.clientX > rect.right ||
+        event.clientY < rect.top ||
+        event.clientY > rect.bottom;
+
+      if (outside) {
+        viewer.close();
+      }
     });
 
     async function removeItem(item) {
-      if (busy || !confirm(`Delete "${item.name}" from this collection?`)) return;
+      if (busy) {
+        return;
+      }
+
+      const confirmed = confirm(
+        `Delete "${item.name}" from this collection?`
+      );
+
+      if (!confirmed) {
+        return;
+      }
 
       setBusy(true);
 
       try {
-        if (database) await storeFile("delete", item.id);
+        if (database) {
+          await storeFile("delete", item.id);
+        }
+
         items = items.filter(entry => entry.id !== item.id);
         URL.revokeObjectURL(item.url);
+
         resetGallery();
-        status.textContent = "Piece removed.";
+
+        status.textContent = "File removed.";
       } catch {
-        status.textContent = "Could not delete this file. Try again.";
+        status.textContent =
+          "Could not delete this file. Please try again.";
       } finally {
         setBusy(false);
       }
     }
 
     function makeTile(item, index) {
-      const tile = node("article", "tile");
+      const tile = createElement("article", "tile");
 
-      if (index % 5 === 0) tile.classList.add("tall");
-      else if (index % 5 === 3) tile.classList.add("short");
+      if (index % 5 === 0) {
+        tile.classList.add("tall");
+      } else if (index % 5 === 3) {
+        tile.classList.add("short");
+      }
 
-      if (index % 9 === 4) tile.classList.add("wide");
+      if (index % 9 === 4) {
+        tile.classList.add("wide");
+      }
 
-      const open = node("button", "tile-open");
+      const open = createElement("button", "tile-open");
       open.type = "button";
       open.setAttribute("aria-label", `Open ${item.name}`);
-      open.addEventListener("click", () => openViewer(item));
+
+      open.addEventListener("click", () => {
+        openViewer(item);
+      });
 
       if (item.kind === "audio") {
         open.append(musicArtwork());
       } else {
-        const media = node(item.kind === "image" ? "img" : "video");
+        const media = createElement(
+          item.kind === "image" ? "img" : "video"
+        );
+
         media.src = item.url;
 
         if (item.kind === "image") {
@@ -762,32 +1079,53 @@ header {
         open.append(media);
       }
 
-      const badge = node("span", "badge", item.demo ? "Design preview" : labels[item.kind]);
-      const info = node("div", "tile-info");
+      const badge = createElement(
+        "span",
+        "badge",
+        item.demo ? "Design preview" : labels[item.kind]
+      );
+
+      const info = createElement("div", "tile-info");
+
+      const detail = item.demo
+        ? "Generated artwork · Endless series"
+        : `${labels[item.kind]} · ${formatSize(item.size)}`;
 
       info.append(
-        node("h3", "", item.name),
-        node("small", "", item.demo
-          ? "Generated artwork · Endless series"
-          : `${labels[item.kind]} · ${formatSize(item.size)}`)
+        createElement("h3", "", item.name),
+        createElement("small", "", detail)
       );
 
       tile.append(open, badge, info);
 
       if (!item.demo) {
-        const actions = node("div", "actions");
+        const actions = createElement("div", "actions");
 
-        const download = node("a", "download", "↓");
+        const download = createElement(
+          "a",
+          "download",
+          "↓"
+        );
+
         download.href = item.url;
         download.download = item.name;
         download.title = "Download";
-        download.setAttribute("aria-label", `Download ${item.name}`);
+        download.setAttribute(
+          "aria-label",
+          `Download ${item.name}`
+        );
 
-        const remove = node("button", "", "×");
+        const remove = createElement("button", "", "×");
         remove.type = "button";
         remove.title = "Delete";
-        remove.setAttribute("aria-label", `Delete ${item.name}`);
-        remove.addEventListener("click", () => removeItem(item));
+        remove.setAttribute(
+          "aria-label",
+          `Delete ${item.name}`
+        );
+
+        remove.addEventListener("click", () => {
+          removeItem(item);
+        });
 
         actions.append(download, remove);
         tile.append(actions);
@@ -797,9 +1135,11 @@ header {
     }
 
     function demoAllowed() {
-      return $("#demo-toggle").checked &&
+      return (
+        $("#demo-toggle").checked &&
         (filter === "all" || filter === "image") &&
-        !$("#search").value.trim();
+        !$("#search").value.trim()
+      );
     }
 
     function hasMore() {
@@ -809,73 +1149,122 @@ header {
     function updateCollectionState() {
       const rendered = gallery.children.length;
 
-      $("#count").textContent = demoAllowed()
-        ? `${items.length} uploads · Endless preview`
-        : `${filtered.length} ${filtered.length === 1 ? "piece" : "pieces"}`;
+      if (demoAllowed()) {
+        $("#count").textContent =
+          `${items.length} uploads · Endless preview`;
+      } else {
+        $("#count").textContent =
+          `${filtered.length} ${
+            filtered.length === 1 ? "file" : "files"
+          }`;
+      }
 
       $("#empty").hidden = rendered > 0;
 
       if (!rendered && items.length) {
-        $("#empty-title").textContent = "No matching pieces.";
-        $("#empty-text").textContent = "Try another search or filter.";
+        $("#empty-title").textContent =
+          "No matching files.";
+
+        $("#empty-text").textContent =
+          "Try another search or filter.";
       } else {
-        $("#empty-title").textContent = "Your canvas is waiting.";
+        $("#empty-title").textContent =
+          "No files yet.";
+
         $("#empty-text").textContent =
           "Upload your first file, or enable Endless preview.";
       }
 
-      $("#scroll-message").textContent = hasMore()
-        ? "Keep scrolling to unfold more ↓"
-        : rendered ? "You’re all caught up. Add another piece whenever inspiration strikes." : "";
+      if (hasMore()) {
+        $("#scroll-message").textContent =
+          "Keep scrolling to load more ↓";
+      } else if (rendered) {
+        $("#scroll-message").textContent =
+          "You’re all caught up.";
+      } else {
+        $("#scroll-message").textContent = "";
+      }
 
       $("#load-more").hidden = !hasMore();
     }
 
     function loadBatch() {
-      if (!ready || loading || !hasMore()) return;
+      if (!ready || loading || !hasMore()) {
+        return;
+      }
 
       loading = true;
-      if (observer) observer.unobserve(sentinel);
+
+      if (observer) {
+        observer.unobserve(sentinel);
+      }
 
       gallery.setAttribute("aria-busy", "true");
 
       const fragment = document.createDocumentFragment();
       const start = gallery.children.length;
+
       let added = 0;
 
-      while (added < BATCH_SIZE && cursor < filtered.length) {
-        fragment.append(makeTile(filtered[cursor++], start + added));
+      while (
+        added < BATCH_SIZE &&
+        cursor < filtered.length
+      ) {
+        fragment.append(
+          makeTile(filtered[cursor++], start + added)
+        );
+
         added++;
       }
 
-      while (added < BATCH_SIZE && demoAllowed()) {
-        fragment.append(makeTile(makeDemo(demoIndex++), start + added));
+      while (
+        added < BATCH_SIZE &&
+        demoAllowed()
+      ) {
+        fragment.append(
+          makeTile(makeDemo(demoIndex++), start + added)
+        );
+
         added++;
       }
 
       gallery.append(fragment);
       gallery.setAttribute("aria-busy", "false");
+
       loading = false;
+
       updateCollectionState();
 
-      /* Reobserve so another batch loads if the page is still too short. */
       requestAnimationFrame(() => {
-        if (observer && hasMore()) observer.observe(sentinel);
+        if (observer && hasMore()) {
+          observer.observe(sentinel);
+        }
       });
     }
 
     function resetGallery() {
-      if (observer) observer.unobserve(sentinel);
+      if (observer) {
+        observer.unobserve(sentinel);
+      }
 
-      const query = $("#search").value.trim().toLowerCase();
+      const query = $("#search")
+        .value
+        .trim()
+        .toLowerCase();
 
-      filtered = items.filter(item =>
-        (filter === "all" || item.kind === filter) &&
-        item.name.toLowerCase().includes(query)
-      );
+      filtered = items.filter(item => {
+        const matchesFilter =
+          filter === "all" || item.kind === filter;
+
+        const matchesSearch =
+          item.name.toLowerCase().includes(query);
+
+        return matchesFilter && matchesSearch;
+      });
 
       cursor = 0;
       demoIndex = 0;
+
       gallery.replaceChildren();
 
       loadBatch();
@@ -883,7 +1272,9 @@ header {
     }
 
     async function importFiles(files) {
-      if (busy || !files.length) return;
+      if (busy || !files.length) {
+        return;
+      }
 
       setBusy(true);
 
@@ -895,7 +1286,13 @@ header {
         for (const file of files) {
           const kind = file.type.split("/")[0];
 
-          if (!["image", "video", "audio"].includes(kind) || file.size > MAX_SIZE) {
+          const supported = [
+            "image",
+            "video",
+            "audio"
+          ].includes(kind);
+
+          if (!supported || file.size > MAX_SIZE) {
             skipped++;
             continue;
           }
@@ -912,8 +1309,15 @@ header {
           };
 
           try {
-            if (database) await storeFile("put", record);
-            items.unshift({ ...record, url: URL.createObjectURL(file) });
+            if (database) {
+              await storeFile("put", record);
+            }
+
+            items.unshift({
+              ...record,
+              url: URL.createObjectURL(file)
+            });
+
             added++;
           } catch {
             failed++;
@@ -922,11 +1326,27 @@ header {
 
         resetGallery();
 
-        const messages = [`${added} ${added === 1 ? "piece" : "pieces"} added.`];
+        const messages = [
+          `${added} ${added === 1 ? "file" : "files"} added.`
+        ];
 
-        if (skipped) messages.push(`${skipped} skipped: unsupported type or over 100 MB.`);
-        if (failed) messages.push(`${failed} could not be saved; storage may be full.`);
-        if (!database) messages.push("Temporary mode: these files will disappear after refresh.");
+        if (skipped) {
+          messages.push(
+            `${skipped} skipped: unsupported type or over 100 MB.`
+          );
+        }
+
+        if (failed) {
+          messages.push(
+            `${failed} could not be saved; browser storage may be full.`
+          );
+        }
+
+        if (!database) {
+          messages.push(
+            "Temporary mode: these files will disappear after refresh."
+          );
+        }
 
         status.textContent = messages.join(" ");
       } finally {
@@ -935,102 +1355,159 @@ header {
       }
     }
 
-    $("#upload-button").addEventListener("click", () => $("#file-input").click());
-    $("#dropzone").addEventListener("click", () => $("#file-input").click());
+    $("#upload-button").addEventListener("click", () => {
+      $("#file-input").click();
+    });
+
+    dropzone.addEventListener("click", () => {
+      $("#file-input").click();
+    });
 
     $("#file-input").addEventListener("change", event => {
       importFiles(Array.from(event.target.files));
     });
 
-    let dragDepth = 0;
-    const dropzone = $("#dropzone");
-
     dropzone.addEventListener("dragenter", event => {
       event.preventDefault();
+
       dragDepth++;
-      if (!busy) dropzone.classList.add("dragging");
+
+      if (!busy) {
+        dropzone.classList.add("dragging");
+      }
     });
 
     dropzone.addEventListener("dragover", event => {
       event.preventDefault();
-      event.dataTransfer.dropEffect = busy ? "none" : "copy";
+
+      event.dataTransfer.dropEffect =
+        busy ? "none" : "copy";
     });
 
     dropzone.addEventListener("dragleave", () => {
       dragDepth = Math.max(0, dragDepth - 1);
-      if (!dragDepth) dropzone.classList.remove("dragging");
+
+      if (!dragDepth) {
+        dropzone.classList.remove("dragging");
+      }
     });
 
     dropzone.addEventListener("drop", event => {
       event.preventDefault();
+
       dragDepth = 0;
       dropzone.classList.remove("dragging");
-      importFiles(Array.from(event.dataTransfer.files));
+
+      importFiles(
+        Array.from(event.dataTransfer.files)
+      );
     });
 
-    window.addEventListener("dragover", event => event.preventDefault());
-    window.addEventListener("drop", event => event.preventDefault());
+    // Prevent files dropped outside the upload area
+    // from navigating away from the page.
+    window.addEventListener("dragover", event => {
+      event.preventDefault();
+    });
 
-    document.querySelectorAll("[data-filter]").forEach(button => {
-      button.addEventListener("click", () => {
-        filter = button.dataset.filter;
+    window.addEventListener("drop", event => {
+      event.preventDefault();
+    });
 
-        document.querySelectorAll("[data-filter]").forEach(other => {
-          other.setAttribute("aria-pressed", String(other === button));
+    document
+      .querySelectorAll("[data-filter]")
+      .forEach(button => {
+        button.addEventListener("click", () => {
+          filter = button.dataset.filter;
+
+          document
+            .querySelectorAll("[data-filter]")
+            .forEach(other => {
+              other.setAttribute(
+                "aria-pressed",
+                String(other === button)
+              );
+            });
+
+          resetGallery();
         });
-
-        resetGallery();
       });
-    });
-
-    let searchTimer;
 
     $("#search").addEventListener("input", () => {
       clearTimeout(searchTimer);
-      searchTimer = setTimeout(resetGallery, 180);
+
+      searchTimer = setTimeout(
+        resetGallery,
+        180
+      );
     });
 
-    $("#demo-toggle").addEventListener("change", resetGallery);
-    $("#load-more").addEventListener("click", loadBatch);
+    $("#demo-toggle").addEventListener(
+      "change",
+      resetGallery
+    );
+
+    $("#load-more").addEventListener(
+      "click",
+      loadBatch
+    );
 
     async function initialize() {
       setBusy(true);
 
       try {
         database = await openDatabase();
+
         const stored = await readFiles();
 
         items = stored
           .sort((a, b) => b.created - a.created)
-          .map(record => ({ ...record, url: URL.createObjectURL(record.blob) }));
+          .map(record => ({
+            ...record,
+            url: URL.createObjectURL(record.blob)
+          }));
 
         database.onversionchange = () => {
           database.close();
           database = null;
-          status.textContent = "Storage changed in another tab. Reload to reconnect.";
+
+          status.textContent =
+            "Storage changed in another tab. Reload to reconnect.";
         };
 
         status.textContent =
           "Ready. Uploads are saved in this browser, not sent to a server.";
       } catch {
-        if (database) database.close();
+        if (database) {
+          database.close();
+        }
+
         database = null;
+
         status.textContent =
           "Browser storage is unavailable. Uploads will work temporarily until refresh.";
       }
 
-      /* Show the theme immediately for first-time visitors. */
-      $("#demo-toggle").checked = items.length === 0;
+      // Start with uploaded files only.
+      // Enable Endless preview to show generated decorative tiles.
+      $("#demo-toggle").checked = false;
 
       if ("IntersectionObserver" in window) {
-        observer = new IntersectionObserver(entries => {
-          if (entries.some(entry => entry.isIntersecting)) loadBatch();
-        }, {
-          rootMargin: "600px 0px"
-        });
+        observer = new IntersectionObserver(
+          entries => {
+            if (
+              entries.some(entry => entry.isIntersecting)
+            ) {
+              loadBatch();
+            }
+          },
+          {
+            rootMargin: "600px 0px"
+          }
+        );
       }
 
       ready = true;
+
       resetGallery();
       setBusy(false);
     }
